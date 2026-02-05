@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Shy ✨</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  background:radial-gradient(circle at bottom,#0b132b,#000);
+  font-family:Arial,sans-serif;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  overflow:hidden;
+}
+
+.page{
+  display:none;
+  background:rgba(0,0,0,.55);
+  padding:30px;
+  border-radius:20px;
+  width:85%;
+  max-width:400px;
+  animation:fade 1s ease;
+}
+.page.active{display:block;}
+
+button{
+  padding:12px 24px;
+  margin:10px;
+  border:none;
+  border-radius:25px;
+  font-size:16px;
+  cursor:pointer;
+  transition:.3s;
+}
+.yes{background:#ff5fa2;color:white;}
+.no{background:#555;color:white;position:relative;}
+.hidden{display:none;}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+.star{
+  position:absolute;
+  background:white;
+  border-radius:50%;
+  animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{
+  from{opacity:.3;}
+  to{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="page active">
+  <h1>Be my Valentine? 💘</h1>
+  <button class="yes" id="yesGrow" onclick="nextPage()">Yes 💕</button>
+  <button class="no" onclick="growYes()">No 😅</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+  <h1>Do you want some music? 🎶</h1>
+  <button class="yes" onclick="nextPage()">Yes 🎧</button>
+  <button class="no" onmouseover="moveNo(this)">No 🙈</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page">
+  <h1>Choose your gifts 🎁</h1>
+  <button onclick="pickGift(this)">🌹 Rose</button>
+  <button onclick="pickGift(this)">🍫 Chocolate</button>
+  <button onclick="pickGift(this)">⭐ Star</button>
+  <br>
+  <button id="giftNext" class="yes hidden" onclick="nextPage()">Next ✨</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page">
+  <h1>Still here? 😳</h1>
+  <button class="yes" onclick="nextPage()">Yes 💓</button>
+  <button class="no" onclick="this.innerText='Yes 😅'; this.className='yes'; this.onclick=nextPage;">
+    No 🤔
+  </button>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page">
+  <h1>Careful… this is getting sweet 🍯</h1>
+  <button class="yes" onclick="nextPage()" style="font-size:22px;">Yes 😌</button>
+</div>
+
+<!-- PAGE 6 -->
+<div class="page">
+  <h1 id="count">3…</h1>
+  <button class="yes" onclick="nextPage()">Wait 👀</button>
+</div>
+
+<!-- PAGE 7 -->
+<div class="page">
+  <h1>Hi 🌌</h1>
+  <p>
+    I know it’s not Valentine’s yet—there are still 9 days to go.<br><br>
+    
+    Hello, good morning ☀️<br>
+    Kamusta ka?<br><br>
+
+    Saglit lang—explain mo muna bakit moko ghinost.<br>
+    Char lang 😅 wala lang naisip ko lang.<br><br>
+
+    Saan ba ako nagkulang?<br>
+    HEHE. Huwag na nating seryosohin ‘yan 😂<br><br>
+
+    Pero seryoso ng konti…<br>
+    sana kahit sandali, napangiti ko yung umaga mo ngayon.<br><br>
+
+    At habang binabasa mo parin to,<br>
+    aamin na ako na magbibiro ulit.<br><br>
+
+    Missin you is so fcking crazy.<br>
+    Char, no pressure sana napangiti kita.<br><br>
+
+    Thank you for reading this—and for staying until the end ✨
+  </p>
+</div>
+
+<script>
+let current=0;
+const pages=document.querySelectorAll(".page");
+
+function nextPage(){
+  pages[current].classList.remove("active");
+  current++;
+  if(current<pages.length){
+    pages[current].classList.add("active");
+  }
+}
+
+// PAGE 1 – YES grows
+let size=16;
+function growYes(){
+  size+=6;
+  document.getElementById("yesGrow").style.fontSize=size+"px";
+}
+
+// PAGE 2 – NO moves
+function moveNo(btn){
+  btn.style.left=Math.random()*100-50+"px";
+  btn.style.top=Math.random()*50-25+"px";
+}
+
+// PAGE 3 – Gifts logic
+let giftsPicked=0;
+function pickGift(btn){
+  if(!btn.classList.contains("picked")){
+    btn.classList.add("picked");
+    btn.innerText="✨ Picked";
+    giftsPicked++;
+    if(giftsPicked===3){
+      document.getElementById("giftNext").classList.remove("hidden");
+    }
+  }
+}
+
+// PAGE 6 – countdown
+let n=3;
+setInterval(()=>{
+  const c=document.getElementById("count");
+  if(c && n>1){
+    n--;
+    c.innerText=n+"…";
+  }else if(c){
+    c.innerText="Okay… 💫";
+  }
+},1000);
+
+// stars
+for(let i=0;i<70;i++){
+  const s=document.createElement("div");
+  s.className="star";
+  s.style.width=s.style.height=Math.random()*2+"px";
+  s.style.top=Math.random()*innerHeight+"px";
+  s.style.left=Math.random()*innerWidth+"px";
+  document.body.appendChild(s);
+}
+</script>
+
+</body>
+  </html>
+    
